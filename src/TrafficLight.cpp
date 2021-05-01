@@ -59,7 +59,7 @@ void TrafficLight::cycleThroughPhases()
 {
     int cycle_duration = 4 + rand() % (6 -4);
 
-    const std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::steady_clock::now();
+    std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::steady_clock::now();
     std::chrono::time_point<std::chrono::steady_clock> end;
     int diff = 0;
     
@@ -79,7 +79,8 @@ void TrafficLight::cycleThroughPhases()
                 _currentPhase = TrafficLightPhase::red;
                 _messageQueue.send(TrafficLightPhase::red);
             }
-            
+            start = std::chrono::steady_clock::now();
+            cycle_duration = 4 + rand() % (6 -4);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
